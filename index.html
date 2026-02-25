@@ -1,13 +1,704 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Meyka</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meyka AI - Free AI Stock Research Platform | Stock Chatbot & Market Analysis</title>
+    <meta name="description" content="Meyka AI is a free AI-powered stock research platform with real-time data, AI stock grades, price forecasts, stock screener, and chatbot API. Covers 50,000+ assets across US, UK, Australia, Canada, Germany, and Hong Kong markets.">
+    <meta name="keywords" content="AI stock research, AI stock analysis, stock market chatbot, AI stock prediction, free stock screener, stock market API, AI investing tool, real-time stock data, stock price forecast, AI stock grades">
+    <meta name="author" content="Meyka AI PTY LTD">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://meyka-devs.github.io/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Meyka AI - Free AI Stock Research Platform">
+    <meta property="og:description" content="AI-powered stock research with real-time data, stock grades, price forecasts, and chatbot API. 50,000+ assets across global markets.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://meyka-devs.github.io/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Meyka AI - Free AI Stock Research Platform">
+    <meta name="twitter:description" content="AI-powered stock research with real-time data, stock grades, price forecasts, and chatbot API.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green: #357232;
+            --green-light: #dcfce7;
+            --green-accent: #22c55e;
+            --dark: #0a0a0a;
+            --dark-card: #141414;
+            --dark-border: #1e1e1e;
+            --gray-100: #f3f4f6;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --white: #ffffff;
+            --red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--dark);
+            color: var(--gray-100);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--green-accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #4ade80;
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 48px 0 40px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .header-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--green-accent);
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.15);
+            padding: 6px 14px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        h1 span {
+            color: var(--green-accent);
+        }
+
+        .header-sub {
+            font-size: 1.05rem;
+            color: var(--gray-400);
+            max-width: 620px;
+        }
+
+        /* Sections */
+        section {
+            padding: 48px 0;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 20px;
+            letter-spacing: -0.3px;
+        }
+
+        p {
+            color: var(--gray-400);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .stat-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--green-accent);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.82rem;
+            color: var(--gray-500);
+            margin-top: 4px;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .feature-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.88rem;
+            color: var(--gray-500);
+            margin-bottom: 0;
+        }
+
+        /* Markets List */
+        .markets-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .market-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--gray-400);
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--gray-400);
+            line-height: 1.8;
+        }
+
+        .code-block .comment {
+            color: var(--gray-500);
+        }
+
+        .code-block .keyword {
+            color: var(--green-accent);
+        }
+
+        .code-block .string {
+            color: #fbbf24;
+        }
+
+        /* Indicators Grid */
+        .indicators-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .indicator-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--green-accent);
+            background: rgba(34, 197, 94, 0.06);
+            border: 1px solid rgba(34, 197, 94, 0.12);
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 56px 0 64px;
+        }
+
+        .cta-section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+
+        .cta-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .cta-btn-primary {
+            background: var(--green-accent);
+            color: var(--dark);
+        }
+
+        .cta-btn-primary:hover {
+            background: #4ade80;
+            text-decoration: none;
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--green-accent);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .cta-btn-secondary:hover {
+            border-color: var(--green-accent);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--dark-border);
+            padding: 32px 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.82rem;
+            color: var(--gray-500);
+            margin-bottom: 8px;
+        }
+
+        footer a {
+            color: var(--gray-400);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- Schema.org Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Meyka AI",
+        "legalName": "Meyka AI PTY LTD",
+        "url": "https://meyka.com",
+        "description": "AI-powered stock research platform with real-time data, AI stock grades, price forecasts, and developer API.",
+        "foundingDate": "2023-10",
+        "foundingLocation": "Melbourne, Australia",
+        "sameAs": [
+            "https://twitter.com/meykaai",
+            "https://www.linkedin.com/company/meykaai",
+            "https://www.reddit.com/r/meykacom"
+        ],
+        "founder": [
+            {
+                "@type": "Person",
+                "name": "Danny Kontos",
+                "jobTitle": "Co-Founder"
+            },
+            {
+                "@type": "Person",
+                "name": "Huzaifa Zahoor",
+                "jobTitle": "Technical Co-Founder"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Schema.org SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Meyka AI Stock Research Platform",
+        "url": "https://meyka.com",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "description": "Free AI stock research tool with chatbot, stock screener, AI grades, price forecasts, and real-time market data across 50,000+ global assets."
+    }
+    </script>
 </head>
 <body>
-  <p>
-    Visit our main website:
-    <a href="https://meyka.com">https://meyka.com</a>
-  </p>
+
+    <div class="container">
+
+        <!-- Header -->
+        <header>
+            <div class="header-badge">Open Source &middot; Melbourne, Australia</div>
+            <h1><span>Meyka AI</span> &mdash; Stock Research Platform</h1>
+            <p class="header-sub">
+                Free AI-powered stock research with real-time data, AI stock grades, price forecasts, and a developer API. Built for investors, traders, and developers who want smarter market analysis.
+            </p>
+        </header>
+
+        <!-- Stats -->
+        <section>
+            <h2>Platform at a Glance</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">600K+</span>
+                    <div class="stat-label">Monthly visitors</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">50,000+</span>
+                    <div class="stat-label">Stocks & assets covered</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">149K+</span>
+                    <div class="stat-label">AI chatbot messages</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">10K+</span>
+                    <div class="stat-label">Newsletter subscribers</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What is Meyka -->
+        <section>
+            <h2>What is Meyka?</h2>
+            <p>
+                <a href="https://meyka.com" target="_blank" rel="noopener">Meyka</a> is an AI-powered stock market research platform built by <a href="https://meyka.com/about-us/" target="_blank" rel="noopener">Meyka AI PTY LTD</a> in Melbourne, Australia. It combines real-time market data with machine learning to help investors research stocks, screen opportunities, and make data-driven decisions.
+            </p>
+            <p>
+                The platform covers stocks, ETFs, crypto, and commodities across major global exchanges. It is free to use for individual investors, with a developer API available at <a href="https://api.meyka.com" target="_blank" rel="noopener">api.meyka.com</a> for building custom stock market chatbots and applications.
+            </p>
+            <p>
+                Unlike general-purpose AI tools like ChatGPT, Meyka has real-time stock data built in. It does not search the internet for prices. It knows them. That means faster, more accurate answers for stock research queries.
+            </p>
+        </section>
+
+        <!-- Core Features -->
+        <section>
+            <h2>Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>AI Stock Chatbot</h3>
+                    <p>Ask any stock question in plain English. Get answers backed by real-time data, not web searches. Available free at <a href="https://meyka.com/chat" target="_blank" rel="noopener">meyka.com/chat</a>.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>AI Stock Grades</h3>
+                    <p>Proprietary grading system scores stocks from A+ to F based on S&P 500 benchmarking, sector comparison, financial growth, key metrics, analyst consensus, and fundamental growth.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Price Forecasts</h3>
+                    <p>Machine learning price predictions for 60,000+ stocks and crypto. Covers monthly, quarterly, yearly, 3-year, 5-year, and 7-year timeframes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Stock Screener</h3>
+                    <p>Filter stocks by P/E ratio, market cap, ROE, EPS growth, momentum, and more. Find opportunities in seconds across global markets. Try it at <a href="https://meyka.com/screener/US/" target="_blank" rel="noopener">meyka.com/screener</a>.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Alternative Data</h3>
+                    <p>Track social sentiment across Twitter, Reddit, LinkedIn, TikTok, YouTube, Facebook, and Instagram. Monitor Glassdoor reviews, employee ratings, and hiring trends.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Real-Time News</h3>
+                    <p>AI-generated news articles triggered by volume spikes and price movements. Covers earnings, analyst ratings, executive trades, and market events across 50,000+ assets.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Indicators -->
+        <section>
+            <h2>Technical Analysis</h2>
+            <p>
+                Meyka provides real-time technical indicators with plain English signals on every stock page. Supports both line and candlestick charts with multiple timeframes from 1 minute to 1 month.
+            </p>
+            <div class="indicators-grid">
+                <span class="indicator-tag">RSI</span>
+                <span class="indicator-tag">MACD</span>
+                <span class="indicator-tag">Bollinger Bands</span>
+                <span class="indicator-tag">ADX</span>
+                <span class="indicator-tag">Stochastic</span>
+                <span class="indicator-tag">Williams %R</span>
+                <span class="indicator-tag">OBV</span>
+                <span class="indicator-tag">MFI</span>
+                <span class="indicator-tag">CCI</span>
+                <span class="indicator-tag">ROC</span>
+                <span class="indicator-tag">ATR</span>
+                <span class="indicator-tag">Keltner Channels</span>
+                <span class="indicator-tag">Momentum</span>
+            </div>
+            <p>
+                Chart pattern detection identifies formations like Double Bottom, Head and Shoulders, and breakout patterns automatically, helping traders spot opportunities before they become obvious.
+            </p>
+        </section>
+
+        <!-- Markets Covered -->
+        <section>
+            <h2>Global Markets Covered</h2>
+            <p>Meyka covers equities, ETFs, crypto, and commodities across major exchanges worldwide.</p>
+            <div class="markets-row">
+                <span class="market-tag">NYSE</span>
+                <span class="market-tag">NASDAQ</span>
+                <span class="market-tag">AMEX</span>
+                <span class="market-tag">LSE (UK)</span>
+                <span class="market-tag">ASX (Australia)</span>
+                <span class="market-tag">TSX (Canada)</span>
+                <span class="market-tag">XETRA (Germany)</span>
+                <span class="market-tag">HKEX (Hong Kong)</span>
+                <span class="market-tag">Euronext</span>
+                <span class="market-tag">SGX (Singapore)</span>
+                <span class="market-tag">NSE (India)</span>
+                <span class="market-tag">JPX (Japan)</span>
+                <span class="market-tag">SIX (Switzerland)</span>
+                <span class="market-tag">Crypto</span>
+            </div>
+        </section>
+
+        <!-- Developer API -->
+        <section>
+            <h2>Stock Market Chatbot API</h2>
+            <p>
+                The <a href="https://api.meyka.com" target="_blank" rel="noopener">Meyka API</a> lets developers build AI stock market chatbots with real-time data included. No separate data provider needed. No data licensing fees. Just one API for AI and market data combined.
+            </p>
+
+            <div class="code-block">
+                <code>
+                    <span class="comment"># Install the SDK</span><br>
+                    <span class="keyword">pip install</span> meyka-sdk<br><br>
+                    <span class="comment"># Ask any stock question</span><br>
+                    <span class="keyword">from</span> meyka <span class="keyword">import</span> MeykaClient<br><br>
+                    client = MeykaClient(api_key=<span class="string">"your-key"</span>)<br>
+                    response = client.chat(<span class="string">"What is Apple's P/E ratio?"</span>)<br>
+                    <span class="keyword">print</span>(response)
+                </code>
+            </div>
+
+            <p>Supports multiple AI models including GPT-4o, Claude Sonnet, Claude Opus, and DeepSeek. Pay per token with no subscriptions or monthly fees. Streaming and async responses supported.</p>
+
+            <p>Includes real-time stock prices, AI grades, price forecasts, technical indicators, alternative data, analyst ratings, and financial statements through a single endpoint.</p>
+        </section>
+
+        <!-- AI Stock Grading -->
+        <section>
+            <h2>How the AI Stock Grade Works</h2>
+            <p>
+                Every stock on <a href="https://meyka.com" target="_blank" rel="noopener">Meyka</a> gets a score out of 100 and a letter grade from A+ to F. The grade is calculated using 8 weighted factors:
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>S&P 500 Benchmark (11%)</h3>
+                    <p>How the stock performs relative to the S&P 500 index.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Sector Comparison (16%)</h3>
+                    <p>Performance measured against sector peers.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Industry Comparison (16%)</h3>
+                    <p>How it ranks within its specific industry group.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Financial Growth (12%)</h3>
+                    <p>Revenue and earnings growth trajectory.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Key Metrics (16%)</h3>
+                    <p>P/E ratio, ROE, EPS, market cap, and valuation metrics.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>AI Forecasts (8%)</h3>
+                    <p>Machine learning price prediction alignment.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Analyst Consensus (14%)</h3>
+                    <p>Wall Street analyst ratings and price targets.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Fundamental Growth (7%)</h3>
+                    <p>Long-term fundamental health indicators.</p>
+                </div>
+            </div>
+            <p>
+                The grade does not give buy or sell recommendations. It is a research tool that helps investors quickly assess stock quality relative to the broader market.
+            </p>
+        </section>
+
+        <!-- Data Suite -->
+        <section>
+            <h2>Proprietary Data Suite</h2>
+            <p>Meyka provides six data tools that most platforms charge separately for, all included for free:</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Stock Grades</h3>
+                    <p>A+ to F ratings for every stock based on 8-factor weighted algorithm.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>AI Forecasts</h3>
+                    <p>Price predictions for 60,000+ assets across 7 timeframes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Social Metrics</h3>
+                    <p>Follower counts, engagement rates, and growth across 6 platforms.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Glassdoor Data</h3>
+                    <p>Employee ratings, review counts, job postings, and culture insights.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Technical Signals</h3>
+                    <p>13+ indicators with real-time signals in plain English.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>News Engine</h3>
+                    <p>AI-generated articles triggered by market events and volume spikes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Tools -->
+        <section>
+            <h2>More Tools on Meyka</h2>
+            <p>
+                Beyond the core research platform, <a href="https://meyka.com" target="_blank" rel="noopener">Meyka</a> offers a range of market tools for different types of investors and traders:
+            </p>
+            <p>
+                Strategy backtesting lets you simulate trading strategies across historical data. Test value investing, momentum plays, or dividend strategies before committing real capital. Analyze performance, drawdowns, and volatility in minutes.
+            </p>
+            <p>
+                The platform also tracks senate trades and disclosures, earnings calendars, dividend calendars, economic calendars, insider transactions, and analyst upgrades and downgrades. Market overview pages show top gainers, top losers, most active stocks, unusual volume, new highs and lows, and curated lists like AI stocks, REIT stocks, dividend stocks, growth stocks, and high ROE stocks.
+            </p>
+            <p>
+                Meyka Pro at <a href="https://meyka.com/pro/" target="_blank" rel="noopener">meyka.com/pro</a> offers advanced stock research tools, sector insights, and chart analysis for serious investors.
+            </p>
+        </section>
+
+        <!-- Who It's For -->
+        <section>
+            <h2>Who Uses Meyka</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Retail Investors</h3>
+                    <p>Research stocks in plain English. Get AI grades and forecasts without reading 50-page reports. Hours of research done in seconds.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Developers</h3>
+                    <p>Build stock chatbots with one API. Real-time data included, no separate licensing. Python SDK ready to go.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Day Traders</h3>
+                    <p>Real-time technical indicators, volume alerts, chart pattern detection, and social sentiment tracking for fast decisions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Long-Term Investors</h3>
+                    <p>7-year AI price forecasts, ROE analysis, fundamental growth tracking, and analyst consensus data for portfolio building.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team -->
+        <section>
+            <h2>Built by Traders, for Traders</h2>
+            <p>
+                Meyka was founded in Melbourne, Australia in October 2023 by Danny Kontos and Huzaifa Zahoor. Danny is a value investor with 15+ years of experience who looks for undervalued companies with a margin of safety. Huzaifa is a software and data engineer specializing in Python and financial systems.
+            </p>
+            <p>
+                The platform started from a simple idea: stock research should not take hours, and quality data should not cost thousands per month. Two years later, Meyka serves 600,000+ monthly visitors with zero funding and zero ads. All growth has been organic.
+            </p>
+            <p>
+                Learn more about the team at <a href="https://meyka.com/about-us/" target="_blank" rel="noopener">meyka.com/about-us</a>.
+            </p>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Start Researching Stocks with AI</h2>
+            <p>Free to use. No credit card needed. No signup required to explore stocks.</p>
+            <div class="cta-links">
+                <a href="https://meyka.com" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Visit Meyka</a>
+                <a href="https://meyka.com/chat" target="_blank" rel="noopener" class="cta-btn cta-btn-secondary">Try AI Chatbot</a>
+                <a href="https://api.meyka.com" target="_blank" rel="noopener" class="cta-btn cta-btn-secondary">Developer API</a>
+                <a href="https://meyka.com/screener/US/" target="_blank" rel="noopener" class="cta-btn cta-btn-secondary">Stock Screener</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 <a href="https://meyka.com" target="_blank" rel="noopener">Meyka AI PTY LTD</a>. Melbourne, Australia.</p>
+            <p>
+                <a href="https://meyka.com/about-us/" target="_blank" rel="noopener">About</a> &nbsp;&middot;&nbsp;
+                <a href="https://meyka.com/pro/" target="_blank" rel="noopener">Meyka Pro</a> &nbsp;&middot;&nbsp;
+                <a href="https://api.meyka.com" target="_blank" rel="noopener">API</a> &nbsp;&middot;&nbsp;
+                <a href="https://meyka.com/blog/" target="_blank" rel="noopener">Blog</a> &nbsp;&middot;&nbsp;
+                <a href="https://meyka.com/market/news/" target="_blank" rel="noopener">News</a>
+            </p>
+            <p style="margin-top: 16px; font-size: 0.75rem;">
+                Stock markets involve risks. This content is for informational purposes only. Meyka AI provides market analysis and data insights, not financial advice. Always do your own research.
+            </p>
+        </footer>
+
+    </div>
+
 </body>
 </html>
